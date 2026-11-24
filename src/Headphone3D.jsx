@@ -1,5 +1,5 @@
 import React, { useRef, useLayoutEffect } from 'react';
-import { useGLTF, Float, ContactShadows, Environment, Center, Resize } from '@react-three/drei';
+import { useGLTF, Float, ContactShadows, Center, Resize } from '@react-three/drei';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 export function Headphone3D() {
     const modelRef = useRef();
 
-    // Aapka डाउनलोड kiya hua 3D Model yahan load ho raha hai
+    // Aapka 3D Model load ho raha hai
     const { scene } = useGLTF('/headphone.glb');
 
     useLayoutEffect(() => {
@@ -40,15 +40,16 @@ export function Headphone3D() {
 
     return (
         <>
-            {/* Studio Lighting taake Black Headphone chamke */}
-            <Environment preset="city" />
-            <ambientLight intensity={1} />
-            <directionalLight position={[10, 10, 5]} intensity={3} color="#3b82f6" />
-            <directionalLight position={[-10, -10, -5]} intensity={2} color="#ec4899" />
+            {/* Pure Three.js Studio Lighting (Bina kisi internet error ke!) */}
+            <ambientLight intensity={2} />
+            <hemisphereLight intensity={2.5} groundColor="#000000" color="#ffffff" />
+            <directionalLight position={[5, 10, 5]} intensity={4} color="#ffffff" />
+            <directionalLight position={[10, 5, -5]} intensity={6} color="#3b82f6" />
+            <directionalLight position={[-10, -5, 5]} intensity={5} color="#ec4899" />
+            <spotLight position={[0, 10, 0]} intensity={3} penumbra={1} />
 
             <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
                 <group ref={modelRef}>
-                    {/* Resize aur Center model ko khud hi perfect size aur center mein kar denge */}
                     <Center>
                         <Resize scale={2.8}>
                             <primitive object={scene} />
