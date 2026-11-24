@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 export function Headphone3D() {
     const modelRef = useRef();
 
-    // Aapka 3D Model load ho raha hai
     const { scene } = useGLTF('/headphone.glb');
 
     useLayoutEffect(() => {
